@@ -1,0 +1,22 @@
+#actualiza el dueño de archivo que solicita cn_erp
+* * * * *	/root/script/racoo/./files_chown
+#carga usuarios LIN_SMB
+* * * * *	/root/script/./recibe_usu
+#envia IP
+0,15,30,45 * * * *	/root/script/./mandaIP.php > /dev/null 2>&1
+#cron rpp_boletin
+0,15,30,45 * * * *	cd /var/www/html/apps/php/; php rpp_cross.php 1> /dev/null
+#envia email a los abogados
+1 22 * * 1,2,3,4,5	/root/script/racoo/./envio_email
+#respaldo
+0 13 * * 1,2,3,4,5	/root/script/./respaldos
+#permisos
+0 * * * *	/root/script/./permisos
+#reinicia smb
+* * * * *	/root/script/racoo/smb.restart.txt
+#actualiza servidor
+0 0,2,4,6,8,10,12,14,16,18,20,22 * * *    /root/script/./minotaria_update_v2
+#baja plantillas
+0,15,30,45 * * * *    /root/script/./minotaria_baja_plantillas_v2
+
+

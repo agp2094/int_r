@@ -1,0 +1,9 @@
+#!/bin/bash
+usuario='racoo84t'
+puerto='9322'
+ip='racoo.mx'
+destino='/var/www/html/'
+origen='/mnt/Volume-1/git/minotaria/[a-zA-Z1-90_][a-zA-Z1-90]*'
+clear
+echo "SUBIR ACTUALIZACION DE racoo.mx"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$origen $destino

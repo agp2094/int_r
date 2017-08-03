@@ -1,0 +1,3 @@
+minotaria#!/bin/bash
+ssh-keygen
+cat ~/.ssh/id_rsa.pub | ssh -p9322 racoo84t@racoo.mx 'cat >> .ssh/authorized_keys'

@@ -1,0 +1,20 @@
+.bgc_carpeta {
+	background-color: #D3D3D3;
+}
+
+.col_finalizado{
+	background-color: #D3D3D3;
+	color: #789;
+}
+.col_finalizado_autorizado, .col_finalizado-autorizado {
+	background-color: #D3D3D3;
+	color: #789;
+	text-decoration: line-through;
+}
+
+
+.col_cancelado, .col_cancelado_autorizado, .col_cancelado-autorizado, .bgc_cancelado {
+	background-color: #D3D3D3;
+	color: #789;
+	text-decoration: line-through;
+}

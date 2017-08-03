@@ -1,0 +1,58 @@
+#!/bin/bash
+# actualiza los duenios de los archivos
+ruta_09="/var/www/html/not09009/control_notarial/"
+ruta_cn="/var/www/html/control_notarial/"
+ruta_n="/var/www/html/"
+if [ -d $ruta_09 ];
+then
+	ruta_ok="$ruta_o9[a-zA-Z1-90_][a-zA-Z1-90]*"
+else
+	if [ -d $ruta_cn ]
+	then
+		ruta_ok="$ruta_cn[a-zA-Z1-90_][a-zA-Z1-90]*"
+	else
+		ruta_ok="$ruta_n[a-zA-Z1-90_][a-zA-Z1-90]*"
+	fi
+fi
+chown racoo.apache $ruta_ok -R
+chmod 775 $ruta_ok -R
+
+chmod  775 /mnt/datos/docs/php-linux -R
+chown racoo.apache /mnt/datos/docs/php-linux -R
+
+# saca la lista de archivos solicitados
+lista=$(ls /mnt/datos/docs/php-linux/archivos/)
+
+#inicia ciclo para entrar a cada archivo
+for y in $lista
+do
+        #lee el contenido del archivo encotrado
+        #echo "leyendo archivo $y"
+        contenido=$(cat "/mnt/datos/docs/php-linux/archivos/$y")
+        no=0
+        file='';
+        for x in $contenido
+        do
+                if [ $no = 0 ]
+                then
+                        #guarda el usuario que sera el duenio del archivo
+                        usu=$x
+                        no=1
+                else
+                        #toma el archivo al que se le cambiara el duenio
+                        if [ $no = 1 ]
+                        then
+                                file="$x"
+                                no=2
+                        else
+                                file="$file $x"
+                        fi
+                        #echo "file actual contiene: $file"
+                fi
+        done
+        echo  $(date)":  $usu $file" >> /mnt/datos/docs/php-linux/logs/files_chown.log.txt
+        #cambia de duenio al archivo
+        chown $usu "$file"  2>> /mnt/datos/docs/php-linux/logs/files_chown.log.txt
+        chmod 775 "$file"
+        rm "/mnt/datos/docs/php-linux/archivos/$y"
+done

@@ -1,0 +1,60 @@
+.tachado { font:8px arial; text-decoration: line-through; background-color:tomato; cursor: pointer; }
+.tachado:hover { background-color: aliceblue; }
+.no_firma { font:bold 11px arial; color:black; background-color: tomato;}
+.visto { font:8px arial; color:#blue; }
+.por_tachar { font:10px arial; color:black; cursor: pointer; background-color: white; }
+.por_tachar:hover { color: black; }
+.sociedad { text-align: center; font:bold 12px monospace; color: white; background: tomato; }
+
+
+.col_finalizado{
+	color: black;
+	background-color: tomato;
+}
+.col_finalizado_autorizado, .col_finalizado-autorizado {
+	color: black;
+	background-color: tomato;
+	text-decoration: line-through;
+}
+
+.col_cancelado, .col_cancelado_autorizado, .col_cancelado-autorizado {
+	color: #999999;
+	background-color: #999999;
+	text-decoration: line-through;
+}
+
+.bgc_finalizado{
+	background-color:tomato;
+}
+
+.bgc_cancelado{
+	background-color:tomato;
+}
+
+.bgc_carpeta {
+	background-color: #999999;
+}
+
+.bgc_carpeta .white_10{
+	color: white;
+}
+
+.bgc_carpeta .white_10:hover{
+	color: blue;
+}
+
+.col_finalizado_autorizado .vencimiento_nombre_estatus{
+	color:tomato;
+}
+
+.vencimiento_nombre_estatus{
+	color:white;
+}
+
+.col_urg_alta {
+	background-color: pink;
+	color:white;
+}
+
+.div_cambio_estatus { position: absolute; top:450px; left:750px; z-index: 10000; }
+

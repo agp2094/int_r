@@ -1,0 +1,31 @@
+#!/bin/sh
+
+echo 'actualizador de sistema'
+/root/script/./minotaria_key_gen
+/root/script/./minotaria_update
+
+echo 'tomamos carpeta config'
+mv __config/* /var/www/html/__config
+chmod 777 /var/www/html/__config/logo.png
+
+echo 'editar limites y claves'
+vim /var/www/html/__config/_limites.php
+vim /var/www/html/__config/clave.php
+chmod 777 /var/www/html/__config/caja/
+chmod 777 /var/www/html/__config/caja/*
+chmod 755 /var/www/html/__config/caja/fact*
+echo '' /var/www/html/_linux/smb_restart.txt
+chown apache.apache /var/www/html/_linux/smb_restart.txt
+
+
+echo 'bajar plantillas'
+vim /root/script/./minotaria_baja_plantillas
+/root/script/./minotaria_baja_plantillas
+
+echo 'editamos manda IP'
+vim /root/script/mandaIP.php
+
+echo 'instalar base de datos copiando y pegando las siguientes lineas'
+echo "mysql racoo84t_cn_erp < /var/www/html/_sql/init_db.sql"
+echo "mysql racoo84t_cn_erp < /var/www/html/_sql/cp.sql"
+

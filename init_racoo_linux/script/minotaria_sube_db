@@ -1,0 +1,9 @@
+#!/bin/bash
+usuario='racoo84t'
+puerto='9322'
+ip='racoo.mx'
+origen="$1"
+destino="/mnt/Volume-2/dbs/$2"
+clear
+echo "SUBIR BD a: racoo.mx"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $origen $usuario@$ip:$destino

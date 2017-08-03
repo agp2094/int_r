@@ -1,0 +1,70 @@
+#!/bin/bash
+my_usu="root";
+my_pas="";#ejemplo: my_pas="-ptoor" //donde -p es la indicación de que se necesita password
+db="--all-databases";#ejemplo: db="--all-databases"
+db_name="all_db";
+path_resp="/mnt/datos/respaldo";
+path_resp_ext="/media/disk";
+unidad_resp_ext="/dev/sdd1";
+id_not="103df";
+date
+> /mnt/datos/docs/racoo/respaldo_ini.txt
+alias cp=cp
+cd /mnt/datos/docs
+echo "----CREANDO sistema.zip--------------------------------"
+zip -ruq "sistema" /etc/samba/
+zip -ruq "sistema" /root/script/
+zip -ruq "sistema" /etc/passwd
+zip -ruq "sistema" /etc/shadow
+zip -ruq "sistema" /etc/group
+zip -ruq "sistema" /etc/fstab
+zip -ruq "sistema" /etc/inittab
+zip -ruq "sistema" /var/spool/cron/
+zip -ruq "sistema" /etc/httpd/conf/httpd.conf
+zip -ruq "sistema" /etc/php.ini
+zip -ruq "sistema" /etc/my.cnf
+
+echo "----CREANDO html.zip--------------------------------"
+date
+zip -ruq /root/"html" /var/www/html
+
+chmod 700 /mnt/datos/docs/sistema.zip
+chmod 700 /root/html.zip
+
+echo "RESP-> mysql"
+mysqldump -u$my_usu $my_pas $db > /mnt/datos/docs/$db_name.sql
+zip /mnt/datos/docs/$db_name.zip /mnt/datos/docs/$db_name.sql
+rm -f /mnt/datos/docs/$db_name.sql
+
+/root/script/./minotaria_sube_db /mnt/datos/docs/$db_name.zip $id_not"_"$db_name.zip
+/root/script/./minotaria_sube_db /mnt/datos/docs/sistema.zip $id_not"_"sistema.zip
+
+date
+echo "RESP-> docs en share"
+cp -prfub --backup=t /mnt/datos/docs $path_resp
+cp -prfub --backup=t /var/www/html/__config $path_resp
+chmod 555 $path_resp -R
+date
+
+echo "RESPALDO UNIDAD EXTERNA"
+mkdir $path_resp_ext 2> /dev/null ;
+mount $unidad_resp_ext $path_resp_ext;
+file_respaldo=$path_resp_ext"/respaldo_check.txt"
+list=$(ls $file_respaldo)
+if [ $list = $file_respaldo ]
+then
+	mkdir $path_resp_ext/respaldo 2> /dev/null ;
+	mkdir $path_resp_ext/respaldo/sql 2> /dev/null;
+	cp -rfub --backup=numbered /mnt/datos/docs/$db_name.zip $path_resp_ext/respaldo/sql/
+	cp -rfub --backup=numbered $path_resp/ $path_resp_ext
+	echo "desmontando";
+	umount $path_resp_ext"/"
+	rm -f /mnt/datos/docs/racoo/respaldo_err.txt
+	> /mnt/datos/docs/racoo/respaldo_ok.txt
+	echo "RESPALDO OK";
+else
+    echo "ERROR DE RESPALDO";
+    rm -f /mnt/datos/docs/racoo/respaldo_ok.txt
+    > /mnt/datos/docs/racoo/respaldo_err.txt
+fi
+echo "FIN";

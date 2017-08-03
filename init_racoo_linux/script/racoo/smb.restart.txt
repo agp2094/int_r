@@ -1,0 +1,16 @@
+#!/bin/bash
+#reincia smb.
+chmod 660  /var/www/html/_linux/smb_restart.txt
+chown racoo.apache  /var/www/html/_linux/smb_restart.txt
+
+lista=$(cat /var/www/html/_linux/smb_restart.txt)
+for x in $lista
+do
+        if [ $x = 'si' ]
+        then
+                echo "listo";
+                /sbin/service smb restart
+                echo "listo: $(date)" > /var/www/html/_linux/smb_restart.txt
+        fi
+done
+

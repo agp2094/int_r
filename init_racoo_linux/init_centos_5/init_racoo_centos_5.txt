@@ -1,0 +1,125 @@
+#!/bin/sh
+alias cp=cp
+alias mv=mv
+
+echo 'chkconfig'
+chkconfig --level 345 httpd on
+chkconfig --level 345 smb on
+chkconfig --level 345 mysqld on
+chkconfig --level 345 bluetooth off
+
+
+echo 'usuario racoo'
+adduser racoo
+passwd racoo
+
+echo 'carpetas'
+mkdir -p /var/www/html/usus
+mkdir -p /var/www/html/__config
+mkdir -p /var/www/html/__config/email
+mkdir -p /var/www/html/__config/sync_files
+mkdir -p /var/www/html/__config/ayuda
+mkdir -p /var/www/html/__config/plantillas
+mkdir -p /mnt/datos/docs/modelos
+mkdir -p /mnt/datos/docs/facturas
+mkdir -p /mnt/datos/docs/sat
+mkdir -p /mnt/datos/docs/servicios
+mkdir -p /mnt/datos/docs/racoo
+mkdir -p /mnt/datos/docs/racoo/expedientes
+mkdir -p /mnt/datos/docs/racoo/clientes
+mkdir -p /mnt/datos/docs/racoo/escrituras
+mkdir -p /mnt/datos/docs/racoo/inmuebles
+mkdir -p /mnt/datos/docs/racoo/inmuebles/_condominios
+mkdir -p /mnt/datos/docs/racoo/subir
+mkdir -p /mnt/datos/docs/racoo/subir/DIM
+mkdir -p /mnt/datos/docs/racoo/subir/entrada_rpp
+mkdir -p /mnt/datos/docs/racoo/subir/salida_rpp
+mkdir -p /mnt/datos/docs/racoo/subir/entrega_cliente
+mkdir -p /mnt/datos/docs/manuales
+mkdir -p /mnt/datos/docs/facturas
+mkdir -p /mnt/datos/docs/qr
+mkdir -p /mnt/datos/share/share
+mkdir -p /mnt/datos/respaldo/docs
+mkdir -p /mnt/datos/respaldo/docs/racoo
+mkdir -p /mnt/datos/respaldo/__config/plantillas
+mkdir -p /mnt/datos/docs/php-linux
+mkdir -p /mnt/datos/docs/php-linux/archivos
+mkdir -p /mnt/datos/docs/php-linux/logs
+
+if [ -L "/var/www/html/__config/plantillas/modelos" ]
+then
+	echo "YA EXITSTE EL LINK"
+else
+	echo "HACIENDO LINK DE modelos y manuales"
+	ln -s /mnt/datos/docs/modelos/ /var/www/html/__config/plantillas/modelos
+	ln -s /mnt/datos/docs/manuales/ /var/www/html/__config/plantillas/manuales
+fi 
+
+echo 'permisos'
+chmod  775 /var/www/html -R
+chmod  1777 /var/www/html/__config/ayuda
+chmod  1777 /var/www/html/__config/plantillas
+chmod  775 /mnt/datos/docs/php-linux -R
+
+chmod 1755 /mnt/datos/docs/racoo/expedientes
+chmod 1755 /mnt/datos/docs/racoo/clientes
+chmod 1755 /mnt/datos/docs/racoo/inmuebles
+chmod 1777 /mnt/datos/docs/racoo/inmuebles/_condominios
+chmod 1777 /mnt/datos/docs/racoo/subir -R
+chmod 1777 /mnt/datos/docs/modelos
+chmod 1777 /mnt/datos/docs/manuales
+chmod 1777 /mnt/datos/docs/facturas
+chmod 1777 /mnt/datos/docs/sat
+
+chmod 1777 /mnt/datos/share/share
+ls > /mnt/datos/docs/racoo/inmuebles/_condominios/-
+echo "cargando admin"
+/usr/sbin/adduser ADMIN 
+echo ADMIN | passwd --stdin admin
+echo -e "admin\nadmin\n" | smbpasswd -s -a ADMIN
+
+chown racoo.apache /var/www/html/ -R
+chown racoo.apache /mnt/datos/docs/php-linux -R
+chown apache.apache /mnt/datos/docs/racoo/ -R
+chown racoo.apache /var/www/html/__config -R
+chown racoo.apache /var/www/html/ -R
+chown apache.apache /mnt/datos/docs/facturas/
+chown apache.apache /mnt/datos/docs/qr/
+
+echo 'mysql'
+mkdir -p /mnt/datos/log/mysql
+chown mysql.mysql /mnt/datos/log/mysql
+service mysqld start
+mysql -uroot < ../init_sql.sql
+service mysqld stop
+cp /var/lib/mysql/ /mnt/datos/mysql/ -Rfp
+cp my.cnf /etc/my.cnf -Rfp
+mv /bin/cp /bin/cp_ant
+mv cp /bin/cp
+chmod 755 /bin/cp
+service mysqld start
+
+echo 'samba ssh php'
+cp smb.conf /etc/samba
+cp ssh_config /etc/ssh
+cp services /etc
+cp php.ini /etc
+
+chmod 644 /etc/samba/smb.conf
+chmod 644 /etc/ssh/ssh_config
+chmod 644 /etc/services
+chmod 644 /etc/php.ini
+
+service smb restart 
+service sshd restart 
+
+echo 'script y cron'
+cp ../script/ /root/ -Rf
+chmod 700 /root/script -R
+cp ../cron_root /var/spool/cron/root
+chown root.root /var/spool/cron/root
+chmod 600 /var/spool/cron/root
+
+echo 'php'
+yum install php-gd
+yum install php-xml

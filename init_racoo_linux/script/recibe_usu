@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# /var/www/html/usus
+var_1=`ls /var/www/html/usus` 
+for usu in $var_1
+do
+	cla=`cat /var/www/html/usus/$usu`
+	no=0
+	for x in $cla
+	do
+		if [ $no = 0 ]	
+		then
+			/root/script/./usus $usu $x
+			no=1
+			rm /var/www/html/usus/$usu
+		fi
+
+	done
+done

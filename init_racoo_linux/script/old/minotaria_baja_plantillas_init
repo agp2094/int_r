@@ -1,0 +1,8 @@
+#!/bin/bash
+
+ssh-keygen
+
+cat ~/.ssh/id_rsa.pub | ssh -p2222 racoo84t@minotaria.net 'cat >> .ssh/authorized_keys'
+
+vim /root/script/./minotaria_baja_plantillas
+/root/script/./minotaria_baja_plantillas

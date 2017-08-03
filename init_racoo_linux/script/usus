@@ -1,0 +1,11 @@
+# !/bin/sh
+case $1 in
+
+"root" | "bin" | "daemon" | "adm" | "lp" | "sync" | "shutdown" | "halt" | "mail" | "news" | "uucp" | "operator" | "games" | "gopher" | "ftp" | "nobody" | "dbus" | "vcsa" | "rpm" | "haldaemon" | "netdump" | "nscd" | "sshd" | "rpc" | "mailnull" | "smmsp" | "rpcuser" | "nfsnobody" | "pcap" | "apache" | "squid" | "webalizer" | "xfs" | "ntp" | "gdm" | "pegasus" | "named" | "pvm" | "cyrus" | "dovecot" | "exim" | "postfix" | "mailman" | "mysql" )
+echo "el usuario $1 no se puede modificar." ;;
+*)
+echo "ok"
+/usr/sbin/adduser $1 
+echo $2 | passwd --stdin $1
+echo -e "$2\n$2\n" | smbpasswd -s -a $1 ;
+esac

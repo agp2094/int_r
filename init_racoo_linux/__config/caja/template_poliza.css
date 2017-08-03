@@ -1,0 +1,162 @@
+.rotar{
+  border: 1px solid #dfdfdf;
+  position: absolute;
+  margin: 0;
+  /*rotate: 90;*/ 
+}
+
+img {
+  width: 16.50cm;
+  height: 7.00cm;
+  display: none;
+}
+
+.cheque {
+  left: 6.25cm;
+  top: 0mm;
+  width: 16.50cm;
+  height: 7.00cm;
+}
+
+.fecha{
+  top: 2.00cm;
+  left: 14.00cm;
+  width: 6.00cm;
+  height: 0.50cm;
+  text-align: center;
+}
+
+.monto{
+  top: 3.50cm;
+  left: 16.0cm;
+  width: 4.00cm;
+  height: 0.50cm;
+  text-align: right;
+}     
+.beneficiario{
+  top: 3.50cm;
+  left: 1.00cm;
+  width: 14.00cm;
+  height: 0.50cm;
+  text-align: left;
+}
+
+.monto_letra{
+  top: 5.00cm;
+  left: 1cm;
+  width: 19.00cm;
+  height: 0.50cm;
+  text-align: left;
+}
+
+.abono_cuenta_beneficiario{
+	position: absolute;
+	top: 6.00cm;
+	left: 6.00cm;
+	width: 6.00cm;
+	text-align: center;
+}
+
+.cuenta{
+	position: absolute;
+	top: 6.50cm;
+	left: 2.00cm;
+}
+
+.concepto{
+	position: absolute;
+	top: 10.80cm;
+	left: 1cm;
+	width:12.50cm;
+}
+
+.beneficiario2{
+	position: absolute;
+	top: 10.80cm;
+	left: 13.00cm;
+	width:7.5cm;
+}
+
+.movs{
+	position: relative;
+	margin-top: 11.00cm;
+	width: 100%;	
+}
+
+
+.movs_table {
+	font: 12px arial;
+}
+
+.movs_th {
+	font: bold 14px arial;
+	border-bottom: 1px solid black;
+}
+
+
+.movs_td_cuenta {
+	width: 4cm;
+	text-align: left;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.movs_td_descripcion {
+	width: 8.5cm;
+	text-align: left;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.movs_td_exp_esc {
+	width: 2.5cm;
+	text-align: right;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.movs_td_debe {
+	width: 2.5cm;
+	text-align: right;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.movs_td_haber {
+	text-align: right;
+	width: 2.5cm;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+
+.movs_td_total {
+	text-align: right;
+	font-weight: bold;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.movs_td_debe_total {
+	text-align: right;
+	font-weight: bold;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+.movs_td_haber_total {
+	text-align: right;
+	font-weight: bold;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+
+.resumen{
+	position: absolute;
+	width: 20cm;
+	bottom:0.7cm;
+	left: 0.8cm;
+}
+
+.titulo{
+	position: absolute;
+	top: 0.00cm;
+	left: 0.10cm;
+	width: 99%;
+	text-align: center;
+	font: 20px arial;
+	border: 1px solid black;
+}

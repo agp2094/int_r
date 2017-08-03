@@ -1,0 +1,30 @@
+#!/bin/bash
+#NOTA: sutituir el ????? por el id de la notaria
+not_id='?????'
+pre=''
+usuario='racoo84t'
+puerto='9322'
+ip='racoo.mx'
+origen1="/mnt/Volume-1/git/plantillas/default_v*"
+destino1="/var/www/html$pre/__config/plantillas/"
+
+origen2="/mnt/Volume-1/git/plantillas/modelos/$not_id"
+destino2="/mnt/datos/docs/modelos/"
+
+
+echo "paso1"
+rsync -av --progress --inplace --delete --rsh="ssh -p$puerto" $usuario@$ip:$origen1 $destino1 
+
+echo "paso2"
+cp -rfub --backup=numbered /var/www/html$pre/__config/plantillas/* /mnt/datos/respaldo/__config/plantillas/
+
+echo "paso3"
+mkdir -p /mnt/datos/docs/modelos/$not_id
+rsync -av --progress --inplace --delete --rsh="ssh -p$puerto" $usuario@$ip:$origen2 $destino2
+
+echo "paso4"
+mkdir -p /mnt/datos/respaldo/docs/modelos/
+cp -rfub --backup=numbered /mnt/datos/docs/modelos/$not_id /mnt/datos/respaldo/docs/modelos/
+echo "paso5"
+alias cp=cp 
+cp -f /var/www/html/__config/plantillas/modelos/$not_id/datos_notaria.html /var/www/html/__config/plantillas/datos_notaria.html

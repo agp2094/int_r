@@ -1,0 +1,7 @@
+# !/bin/sh
+vim /etc/sysconfig/network-scripts/ifcfg-eth0
+vim /etc/sysconfig/networking/profiles/default/hosts
+vim /etc/sysconfig/networking/profiles/default/network
+vim /etc/sysconfig/network
+vim /etc/resolv.conf
+ifdown eth0; ifup eth0;

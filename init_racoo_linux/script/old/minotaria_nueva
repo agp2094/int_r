@@ -1,0 +1,10 @@
+#!/bin/bash
+usuario='racoo84t'
+puerto='2222'
+ip='minotaria.net'
+destino='/var/www/html/'
+origen='/home3/racoo84t/nueva/*'
+clear
+echo "SUBIR ACTUALIZACION DE minotaria.net"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$origen $destino
+rm /root/script/minotaria_nueva

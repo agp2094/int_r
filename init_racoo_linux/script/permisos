@@ -1,0 +1,5 @@
+#!/bin/bash
+chown ADMIN.ADMIN /var/www/html/__config/ayuda
+chmod 775 /var/www/html/__config/ayuda -R
+chown ADMIN.ADMIN /var/www/html/__config/plantillas
+chmod 775 /var/www/html/__config/plantillas -R

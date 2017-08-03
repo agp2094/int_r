@@ -1,0 +1,1 @@
+rsync -av --progress --inplace --rsh="ssh -p2222" racoo84t@minotaria.net:/home/racoo84t/public_html/control_notarial/[a-zA-Z1-90_][a-zA-Z1-90]* /var/www/html/

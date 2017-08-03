@@ -1,0 +1,57 @@
+.rotar{
+  border: 0px solid #dfdfdf;
+  position: absolute;
+  margin: 0;
+  rotate: 90; 
+}
+
+img {
+  width: 16.50cm;
+  height: 7.00cm;
+  display: none;
+}
+
+.cheque {
+  left: 6.25cm;
+  top: 0mm;
+  width: 16.50cm;
+  height: 7.00cm;
+}
+
+.fecha{
+  top: 7.85cm;
+  left: 12.70cm;
+  width: 6.30cm;
+  height: 0.50cm;
+  text-align: center;
+}
+
+.monto{
+  top: 11.85cm;
+  left: 11.25cm;
+  width: 4.00cm;
+  height: 0.50cm;
+  text-align: center;
+}     
+.beneficiario{
+  top: 0.20cm;
+  left: 11.00cm;
+  width: 8.00cm;
+  height: 0.50cm;
+  text-align: left;
+}     
+.monto_letra{
+  top: 0.20cm;
+  left: 10.20cm;
+  width: 13.00cm;
+  height: 0.50cm;
+  text-align: left;
+}    
+
+.acb{
+position: absolute;
+top: 6.00cm;
+left: 8.50cm;
+width: 4.00cm;
+text-align: center;
+}

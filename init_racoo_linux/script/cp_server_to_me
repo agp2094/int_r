@@ -1,0 +1,77 @@
+#!/bin/bash
+#######################
+#UTILIZADO PARA MIGRAR DE UN SERVIDOR A OTRO
+#NOTA1: AL TERMINAR HAY QUE REINICIAR EL SERVIDOR
+#NOTA2: DEBE HABER UN ARCHIVO:
+#	/mnt/datos/respaldo/racoo84t_cn_erp.sql 
+#	EN EL SERVIDOR DE ORIGEN
+#######################
+usuario='root'
+puerto='9322'
+ip='189.146.20.175'
+
+clear
+echo "===ARCHIVOS==="
+ambos='/etc/passwd'
+echo "BAJANDO $ambos de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$ambos $ambos
+ambos='/etc/shadow'
+echo "BAJANDO $ambos de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$ambos $ambos
+ambos='/etc/group'
+echo "BAJANDO $ambos de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$ambos $ambos
+
+ambos='/etc/httpd/conf/httpd.conf'
+echo "BAJANDO $ambos de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$ambos $ambos
+
+ambos='/etc/php.ini'
+echo "BAJANDO $ambos de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$ambos $ambos
+
+service httpd reload
+
+ambos='/etc/my.cnf'
+echo "BAJANDO $ambos de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$ambos $ambos
+
+service mysqld restart
+
+echo "===CARPETAS==="
+destino='/var/www/html/'
+origen='/var/www/html/*'
+echo "BAJANDO $origen de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$origen $destino
+
+destino='/etc/samba/'
+origen='/etc/samba/*'
+echo "BAJANDO $origen de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$origen $destino
+
+
+destino='/mnt/datos/docs/all_db.zip'
+origen='/mnt/datos/docs/all_db.zip'
+echo "BAJANDO $origen de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$origen $destino
+
+echo "montando mysql"
+rm -f mnt/datos/docs/all_db.sql 
+unzip /mnt/datos/docs/all_db.zip
+mysql < mnt/datos/docs/all_db.sql
+
+destino='/mnt/datos/docs/'
+origen='/mnt/datos/docs/*'
+echo "BAJANDO $origen de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$origen $destino
+
+
+destino='/mnt/datos/respaldo/'
+origen='/mnt/datos/respaldo/*'
+echo "BAJANDO $origen de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$origen $destino
+
+destino='/mnt/datos/share/share/'
+origen='/mnt/datos/share/share/*'
+echo "BAJANDO $origen de $ip"
+rsync -av --progress --inplace --rsh="ssh -p$puerto" $usuario@$ip:$origen $destino

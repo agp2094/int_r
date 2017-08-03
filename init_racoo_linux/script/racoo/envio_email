@@ -1,0 +1,12 @@
+#!/bin/bash
+echo "---------------------------";
+echo "---------- I N I ----------";
+echo "---------------------------";
+echo $(date);
+cd /var/www/html/not09009/control_notarial/com;
+php com.php mireportes m_manda_reporte_por_email todos
+echo "";
+echo $(date)
+echo "---------------------------";
+echo "---------- FIN   ----------";
+echo "---------------------------";

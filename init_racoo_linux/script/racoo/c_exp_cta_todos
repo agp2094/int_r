@@ -1,0 +1,3 @@
+#/bin/bash
+cd /var/www/html/control_notarial/com/
+time php com.php c_exp_ctas m_saldo_expediente_todos > /root/script_fra/c_exp_cta_todo_result

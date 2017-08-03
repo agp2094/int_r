@@ -1,0 +1,13 @@
+[] configurar red
+[] ejecutar init_racoo_linux.txt
+[] cambiar inttab
+[] vim sshd_config 9322
+[] rsync control_notarial
+[] ftp __config
+[] mysql init_cn y cp
+[] __config/limites.php
+[] __config/claves.php
+[] mandaIP
+[] ejecutar primer respaldo
+[] configurar MYIP
+[] configurar boletin RPP DF
